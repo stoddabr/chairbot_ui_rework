@@ -1,0 +1,2 @@
+./static/chairbot/py/CB07.txt
+x/ll[0] 	 y/ll[1] 	 degree 	 time

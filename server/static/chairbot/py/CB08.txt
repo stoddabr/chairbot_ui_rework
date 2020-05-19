@@ -1,0 +1,2 @@
+/home/charisma/catkin_ws/src/central_server/static/chairbot/py/CB08.txt
+/home/charisma/catkin_ws/src/central_server/static/chairbot/py/CB08.txt
