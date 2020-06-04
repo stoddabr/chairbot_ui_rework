@@ -20,6 +20,11 @@ import math
 # HOST = "127.0.0.1"
 # PORT = "9600"
 
+# variables that enable/disable features
+WRITE_TO_FILE = False #
+STREAM_TO_ROBOT = False # stream movement data to the robot
+
+
 class TrackingCamera(object):
     def __init__(self):
         # USB-Connected Camera
@@ -97,7 +102,7 @@ class TrackingCamera(object):
                             # average of the bottome two fiducial corners
                             botcords = (corner[1] + corner[2]) / 2
                             # Difference between top and bottom
-                            ydeltacords = top - bot
+                            ydeltacords = topcords - botcords
                             # Tangent of the y and the x
                             theta = math.atan2(ydeltacords[1], ydeltacords[0])
                             # Changes theta from radians to positive degrees (0 to 360 rotating counter-clockwise)
@@ -107,17 +112,29 @@ class TrackingCamera(object):
                             circlesize = 15
                             cv2.circle(gray,(midcords[0],midcords[1]), circlesize, (0,0,255), -1)
 
-                            #Append data onto corresponding file
-                            filename = self.filenames[int(index[0])]
-                            with open(filename, 'a') as f:
-                                f.write(str(midcords[0]))
-                                f.write('\t')
-                                f.write(str(midcords[1]))
-                                f.write('\t')
-                                f.write(str(degree))
-                                f.write('\t')
-                                f.write(str(time.time()))
-                                f.write('\t\n')
+                            if WRITE_TO_FILE:
+                                #Append data onto corresponding file
+                                filename = self.filenames[int(index[0])]
+                                with open(filename, 'a') as f:
+                                    f.write(str(midcords[0])) # x
+                                    f.write('\t')
+                                    f.write(str(midcords[1])) # y
+                                    f.write('\t')
+                                    f.write(str(degree)) # angle
+                                    f.write('\t')
+                                    f.write(str(time.time())) # time
+                                    f.write('\t\n')
+                            if STREAM_TO_ROBOT:
+                                # Stream movement commands to robot
+                                # based on localization data
+                                self.robotController.updateFiducialPosition(
+                                    int(index[0]), # fiducial id
+                                    midcords[0], # x position
+                                    midcords[1], # y position
+                                    degree # angle
+                                )
+                                # robotController will send commands to the robot
+
                     except IndexError:
                         pass
 

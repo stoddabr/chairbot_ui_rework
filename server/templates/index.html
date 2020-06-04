@@ -114,11 +114,11 @@ code post 4/1 updated by Brett
 
     .button-input {
       flex: 1;
-      border: 1px solid #660000;
+      /*border: 1px solid #660000;*/
     }
 
     #joystick {
-      border: 1px solid #9C9898;
+      /*border: 1px solid #9C9898;*/
     }
 
     /* responsive styles for mobile using media queries */
@@ -151,22 +151,22 @@ code post 4/1 updated by Brett
         <div class='button-input'>
           <label class="switch" style="background: green; color: white">
             <input class='chair_selectors' type="checkbox" id="Switch01" onclick="toggle_chair01()" style="" />
-            <span class="slider round" style="padding-right:1em">Duck</span>
+            <span class="slider round" style="padding-right:1em" id="Toggle01Text">Chair1</span>
           </label>
 
           <label class="switch" style="background: orange; color: white">
             <input class='chair_selectors' type="checkbox" id="Switch02" onclick="toggle_chair02()">
-            <span class="slider round" style="padding-right:1em">Beaver</span>
+            <span class="slider round" style="padding-right:1em" id="Toggle02Text">Chair2</span>
           </label>
 
           <label class="switch" style="background: black; color: white">
             <input class='chair_selectors' type="checkbox" id="Switch03" onclick="toggle_chair03()">
-            <span class="slider round" style="padding-right:1em">Cat</span>
+            <span class="slider round" style="padding-right:1em" id="Toggle03Text">Chair3</span>
           </label>
 
           <label class="switch" style="background: purple; color: white">
             <input class='chair_selectors' type="checkbox" id="Switch04" onclick="toggle_chair04()" style="">
-            <span class="slider round" style="padding-right:1em">Yzma</span>
+            <span class="slider round" style="padding-right:1em" id="Toggle04Text">Chair4</span>
           </label>
 
           <label class='switch'>
