@@ -5,7 +5,10 @@ import rospy
 
 from geometry_msgs.msg import Twist
 
-import sys, select, termios, tty
+import sys
+import select
+import termios
+import tty
 
 from std_msgs.msg import String
 from sensor_msgs.msg import LaserScan
@@ -19,6 +22,7 @@ Reading from the GoPro Camera ~!! And Publishing to the ChairBots!
 ---------------------------
 Place markers in front of the camera to start reading:
 """
+
 
 def mark_handler():
     global marker_pose_1
@@ -40,7 +44,7 @@ def mark_handler():
     global Line8
 
     global host_busy
-    global host_requested 
+    global host_requested
 
     global Waypoint_Host
     global Waypoint_Path1
@@ -59,19 +63,18 @@ def mark_handler():
     Line8 = False
 
     host_busy = False
-    host_requested = (0,0)
+    host_requested = (0, 0)
 
-
-    Waypoint_Host   = (500,500)
-    Waypoint_Table1 = (0,0)
-    Waypoint_Table2 = (0,0)
-    Waypoint_Path1  = (0,0)
-    Waypoint_Path2  = (0,0)
-    Waypoint_Path3  = (0,0)
+    Waypoint_Host = (500, 500)
+    Waypoint_Table1 = (0, 0)
+    Waypoint_Table2 = (0, 0)
+    Waypoint_Path1 = (0, 0)
+    Waypoint_Path2 = (0, 0)
+    Waypoint_Path3 = (0, 0)
 
     lastVal = [None] * 4
 
-    print "reading"
+    print("reading")
 
     while True:
         print Line4
@@ -79,89 +82,91 @@ def mark_handler():
         filename1 = open(filePath + "CB01.txt", 'r')
         lastLine1 = filename1.readlines()[-1].strip('\n')
         if ".txt" not in lastLine1:
-            vals = map(float,lastLine1.strip().split('\t'))
+            vals = map(float, lastLine1.strip().split('\t'))
             marker_pose_1 = vals[0:3]
             if(marker_pose_1 != lastVal):
                 lastVal = marker_pose_1
                 print marker_pose_1
             Line1 = True
             pass
-        filename1.close();
+        filename1.close()
 
         filename2 = open(filePath + "CB02.txt", 'r')
         lastLine2 = filename2.readlines()[-1].strip('\n')
         if ".txt" not in lastLine2:
-            vals = map(float,lastLine2.strip().split('\t'))
+            vals = map(float, lastLine2.strip().split('\t'))
             marker_pose_2 = vals[0:3]
             Line2 = True
             pass
-        filename2.close();
+        filename2.close()
 
         filename3 = open(filePath + "CB03.txt", 'r')
         lastLine3 = filename3.readlines()[-1].strip('\n')
-        if ".txt" not in lastLine3: 
-            vals = map(float,lastLine3.strip().split('\t'))
+        if ".txt" not in lastLine3:
+            vals = map(float, lastLine3.strip().split('\t'))
             marker_pose_3 = vals[0:3]
             Line3 = True
             pass
-        filename3.close();
+        filename3.close()
 
         filename4 = open(filePath + "CB04.txt", 'r')
         lastLine4 = filename4.readlines()[-1].strip('\n')
-        if ".txt" not in lastLine4: 
-            vals = map(float,lastLine4.strip().split('\t'))
+        if ".txt" not in lastLine4:
+            vals = map(float, lastLine4.strip().split('\t'))
             marker_pose_4 = vals[0:3]
             Line4 = True
             print Line4
             pass
-        filename4.close();
+        filename4.close()
 
         filename5 = open(filePath + "CB05.txt", 'r')
         lastLine5 = filename5.readlines()[-1].strip('\n')
-        if ".txt" not in lastLine5: 
-            vals = map(float,lastLine5.strip().split('\t'))
+        if ".txt" not in lastLine5:
+            vals = map(float, lastLine5.strip().split('\t'))
             marker_pose_5 = vals[0:3]
             Line5 = True
             pass
-        filename5.close();
+        filename5.close()
 
         filename6 = open(filePath + "CB06.txt", 'r')
         lastLine6 = filename6.readlines()[-1].strip('\n')
-        if ".txt" not in lastLine6: 
-            vals = map(float,lastLine6.strip().split('\t'))
+        if ".txt" not in lastLine6:
+            vals = map(float, lastLine6.strip().split('\t'))
             marker_pose_6 = vals[0:3]
             Line6 = True
             pass
-        filename6.close();
+        filename6.close()
 
         filename7 = open(filePath + "CB07.txt", 'r')
         lastLine7 = filename7.readlines()[-1].strip('\n')
         if ".txt" not in lastLine7:
-            vals = map(float,lastLine7.strip().split('\t'))
-            marker_pose_7 = vals[0:3] 
+            vals = map(float, lastLine7.strip().split('\t'))
+            marker_pose_7 = vals[0:3]
             Line7 = True
             pass
-        filename7.close();
+        filename7.close()
 
         filename8 = open(filePath + "CB08.txt", 'r')
         lastLine8 = filename8.readlines()[-1].strip('\n')
-        if ".txt" not in lastLine8: 
-            vals = map(float,lastLine8.strip().split('\t'))
+        if ".txt" not in lastLine8:
+            vals = map(float, lastLine8.strip().split('\t'))
             marker_pose_8 = vals[0:3]
             Line8 = True
             pass
-        filename8.close();
+        filename8.close()
 
         send_commands()
     pass
+
 
 def get_current_waiter_waypoint(current_pose):
 
     pass
 
+
 def get_current_host_waypoint(current_pose):
     global host_busy
-    global host_requested 
+    global host_requested
 
     global Waypoint_Host
     global Waypoint_Path1
@@ -207,19 +212,21 @@ def get_current_host_waypoint(current_pose):
 
             if((abs(current_pose[0] - host_requested[0]) < 10) and (abs(current_pose[1] - host_requested[1]) < 10) and host_requested == Waypoint_Path2):
                 host_requested = Waypoint_Table1
-            
+
             if((abs(current_pose[0] - host_requested[0]) < 10) and (abs(current_pose[1] - host_requested[1]) < 10) and host_requested == Waypoint_Table1 or host_requested == Waypoint_Table2):
                 host_busy = False
                 tableRoutine()
 
+
 def greetRoutine():
-    #Spin 
-    #Shine Light
+    # Spin
+    # Shine Light
     host_busy = True
     host_requested = Waypoint_Path1
 
+
 def tableRoutine():
-    #Do Something
+    # Do Something
     host_busy = True
     host_requested = Waypoint_Host
 
@@ -239,8 +246,9 @@ def go_to_waypoint(current_pose, waypoint, msg_pub):
         sterring_msg.linear.x = 50
     msg_pub.publish(steering_msg)
 
+
 def send_commands():
-    rate = rospy.Rate(10) # 10hz
+    rate = rospy.Rate(10)  # 10hz
     # last line whatever is the coord
 
     if (Line3):
@@ -281,4 +289,4 @@ if __name__ == '__main__':
         print msg
         mark_handler()
     except rospy.ROSInterruptException:
-        pass  
+        pass

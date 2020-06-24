@@ -21,17 +21,19 @@ import math
 # PORT = "9600"
 
 # variables that enable/disable features
-WRITE_TO_FILE = False #
-STREAM_TO_ROBOT = False # stream movement data to the robot
+WRITE_TO_FILE = False
+STREAM_TO_ROBOT = False  # stream movement data to the robot
 
 
 class TrackingCamera(object):
     def __init__(self):
         # USB-Connected Camera
-    	self.cap = cv2.VideoCapture(0) # 1 for usb camera
+    	  self.cap = cv2.VideoCapture(0)  # 1 for usb camera
 
         # Fiducial Marker Dictionary
-        self.dictionary = cv2.aruco.getPredefinedDictionary(cv2.aruco.DICT_4X4_50)
+        self.dictionary = cv2.aruco.getPredefinedDictionary(
+          cv2.aruco.DICT_4X4_50
+          )
 
         # Constant relative file path to main.py
         self.filePath = './static/chairbot/py/'
@@ -68,7 +70,7 @@ class TrackingCamera(object):
     #     s = socket()
     #     s.bind((HOST, PORT))
     #     s.send("Hello ")
-        #with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+        # with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
             # bind server to specific HOST and PORT
          #   s.bind((HOST, PORT))
             # send the payload data to the client
@@ -113,7 +115,7 @@ class TrackingCamera(object):
                             cv2.circle(gray,(midcords[0],midcords[1]), circlesize, (0,0,255), -1)
 
                             if WRITE_TO_FILE:
-                                #Append data onto corresponding file
+                                # Append data onto corresponding file
                                 filename = self.filenames[int(index[0])]
                                 with open(filename, 'a') as f:
                                     f.write(str(midcords[0])) # x
@@ -127,11 +129,9 @@ class TrackingCamera(object):
                             if STREAM_TO_ROBOT:
                                 # Stream movement commands to robot
                                 # based on localization data
-                                self.robotController.updateFiducialPosition(
+                                self.robotController.updateRobotLocation(
                                     int(index[0]), # fiducial id
-                                    midcords[0], # x position
-                                    midcords[1], # y position
-                                    degree # angle
+                                    (midcords[0], midcords[1], degree), # x,y,angle location
                                 )
                                 # robotController will send commands to the robot
 
