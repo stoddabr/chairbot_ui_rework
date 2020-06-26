@@ -171,8 +171,23 @@ class RobotEntity:
         # calculate and send command to neato
         command = self.generateCommand(goalCoords)
         if command.isNothing():
-          return False
-        
+            return False
+
         self.sendCommand(command)
 
         return True
+
+    def sendCommand(self, command):
+        """ Sends a command over ROS socket
+
+        Parameters
+        ----------
+        command : CommandClass
+
+        Raises
+        ------
+        SystemError
+            If socket fails
+        """
+
+        # TODO call rosbridge_websocket
