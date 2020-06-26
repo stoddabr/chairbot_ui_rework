@@ -191,3 +191,16 @@ class RobotEntity:
         """
 
         # TODO call rosbridge_websocket
+        # @tutorial http://wiki.ros.org/roslibjs/Tutorials/ActionlibClient
+        # method 1: try import ROSPY, init node, publish to topic
+        #     http://wiki.ros.org/rospy/Tutorials
+        #
+        #     bash: rostopic echo /topicname  % this will display messages published to a topic
+        #     python: import rospy
+        #             # http://wiki.ros.org/ROS/Tutorials/WritingPublisherSubscriber%28python%29
+        #
+        # method 1.1: https://answers.ros.org/question/234418/easiest-way-to-implement-http-server-that-can-send-ros-messages/
+        #    https://campus-rover.gitbook.io/lab-notebook/cr-package/web-application/flask-and-ros
+        #    https://github.com/3SpheresRoboticsProject/flask_ask_ros/blob/master/src/skill_server.py
+        #
+        # method 2: reverse engineer roslibjs

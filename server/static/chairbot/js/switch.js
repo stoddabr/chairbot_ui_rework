@@ -1,7 +1,7 @@
 // Connecting to ROS
 // -----------------
 // create a Ros node object to communicate with a rosbridge v2.0 server.
-var ros_server = '192.168.1.196'
+var ros_server = '192.168.1.196' // 'localhost' will only work if running on machine
 var ros_port = '9090'
 var ros = new ROSLIB.Ros({
   url: 'ws://' + ros_server + ':' + ros_port
