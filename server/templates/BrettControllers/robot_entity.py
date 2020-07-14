@@ -110,7 +110,7 @@ class RobotEntity:
         return theta * 180 / pi + 180
 
     def generateCommand(self):
-        """ Calculates and triggers a robot movement
+        """ Calculates and triggers a robot movement (ie path planning)
 
         Returns int distance to goal in coords
         """
@@ -128,7 +128,7 @@ class RobotEntity:
         [_, _, currAngle] = self.coords
         if goalAngle + angleTolerance > currAngle \
                 and goalAngle - angleTolerance < currAngle:
-            return CommandClass('Left', self.robotId)
+            return CommandClass('Forward', self.robotId)
 
         # turn so angle is within margin
         if goalAngle < currAngle:

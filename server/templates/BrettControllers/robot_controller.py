@@ -39,8 +39,6 @@ class RobotController:
         fiducial id of the origin reference used
     originLocation : tuple < int, int >
         x,y coordinates of the origin fiducial
-    socket : ???
-        socket used to send commands
 
     Public Methods
     -------
