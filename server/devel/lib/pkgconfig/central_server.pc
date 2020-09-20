@@ -1,0 +1,8 @@
+prefix=/home/charisma/catkin_ws/src/central_server/server/devel
+
+Name: central_server
+Description: Description of central_server
+Version: 0.0.0
+Cflags: 
+Libs: -L/home/charisma/catkin_ws/src/central_server/server/devel/lib 
+Requires: 

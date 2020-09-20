@@ -1,0 +1,9 @@
+<!--
+ -->
+
+<launch>
+<node pkg="rosbridge_server" type="rosbridge_websocket.py"
+name="rosbridge_websocket" output="log"/>
+<node name='central_server' type='main.py' pkg='central_server'
+  output='screen'/>
+</launch>

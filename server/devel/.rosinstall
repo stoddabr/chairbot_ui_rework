@@ -1,0 +1,2 @@
+- setup-file:
+    local-name: /home/charisma/catkin_ws/src/central_server/server/devel/setup.sh
